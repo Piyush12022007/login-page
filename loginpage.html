@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Login Page</title>
+    <!-- Add Google Fonts for overlay font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2 class="overlay-font" data-text="Login">
+        Login<span class="dots"
+          ><span>.</span><span>.</span><span>.</span></span
+        >
+      </h2>
+      <form class="center-form">
+        <input type="text" placeholder="Username" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+    <script>
+      const dots = document.querySelectorAll(".dots span");
+      let step = 0;
+      setInterval(() => {
+        dots.forEach((dot, i) => {
+          // Animate: 1st down, 2nd up, 3rd down, then repeat
+          if (step % 3 === i) {
+            dot.style.transform = "translateY(8px)";
+          } else if ((step + 1) % 3 === i) {
+            dot.style.transform = "translateY(-8px)";
+          } else {
+            dot.style.transform = "translateY(8px)";
+          }
+        });
+        step = (step + 1) % 3;
+      }, 350);
+    </script>
+  </body>
+</html>

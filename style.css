@@ -1,0 +1,279 @@
+/* Glassy, smokey background for body */
+body {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    background: linear-gradient(120deg, #232526, #3a1c71, #d76d77, #ffaf7b);
+    background-size: 400% 400%;
+    animation: bodyGradientMove 16s ease-in-out infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('https://www.transparenttextures.com/patterns/smoke.png');
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+}
+body::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    left: 60%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #ffaf7b55 0%, #d76d7755 60%, transparent 100%);
+    filter: blur(60px);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+}
+@keyframes bodyGradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Glassy, smokey login container */
+.login-container {
+    position: relative;
+    background: rgba(255, 255, 255, 0.18);
+    padding: 40px 32px;
+    border-radius: 24px;
+    width: 340px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 4px 24px rgba(0,0,0,0.25);
+    backdrop-filter: blur(22px) saturate(180%);
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(218,143,255,0.14) 60%, rgba(215,109,119,0.13) 100%);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 6px rgba(0,0,0,0.13) inset;
+    z-index: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* border: 1.5px solid rgba(255, 255, 255, 0.28); */ /* Remove border */
+}
+.login-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: url('https://www.transparenttextures.com/patterns/smoke.png');
+    opacity: 0.13;
+    pointer-events: none;
+    z-index: 0;
+}
+.login-container::after {
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #d76d77cc 0%, transparent 80%);
+    filter: blur(24px);
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.login-container h2 {
+    margin-bottom: 24px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.22);
+}
+
+/* Center the form inside the login container */
+.center-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+/* Overlay font for heading with new font and animated "liquid trail" effect */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+.overlay-font {
+    font-family: 'Orbitron', 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
+    display: flex;           /* Change from inline-block to flex */
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    width: 100%;             /* Take full width of container */
+    text-align: center;
+    margin-bottom: 24px;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.22), 0 2px 8px rgba(215,109,119,0.18);
+    background: linear-gradient(120deg, #232526, #3a1c71, #d76d77, #ffaf7b, #fff176, #00c9ff, #ff6a00);
+    background-size: 800% 800%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fontGradientMove 10s ease-in-out infinite, floatUpDown 2.5s cubic-bezier(.4,0,.2,1) infinite;
+    /* For smooth movement */
+    will-change: transform;
+}
+
+/* Simulate "liquid trail" using a blurred pseudo-element */
+.overlay-font::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(14px) brightness(1.4) saturate(2.2);
+    opacity: 0.65;
+    background: inherit;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    pointer-events: none;
+    animation: fontGradientMove 10s ease-in-out infinite, floatUpDownTrail 2.5s cubic-bezier(.4,0,.2,1) infinite;
+}
+
+/* Up and down movement for main text */
+@keyframes floatUpDown {
+    0%   { transform: translateY(0); }
+    20%  { transform: translateY(-8px); }
+    50%  { transform: translateY(0); }
+    70%  { transform: translateY(8px); }
+    100% { transform: translateY(0); }
+}
+/* Slightly delayed trail movement */
+@keyframes floatUpDownTrail {
+    0%   { transform: translateY(0); }
+    20%  { transform: translateY(-16px); }
+    50%  { transform: translateY(0); }
+    70%  { transform: translateY(16px); }
+    100% { transform: translateY(0); }
+}
+
+/* Gradient animation for both */
+@keyframes fontGradientMove {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 50% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 50%; }
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 14px 16px;
+    margin: 10px 0 18px 0;
+    /* border: none; */ /* Remove border */
+    border-radius: 10px;
+    background: linear-gradient(120deg, rgba(255,255,255,0.22) 0%, rgba(218,143,255,0.10) 100%);
+    color: #232526;
+    font-size: 1.08rem;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    backdrop-filter: blur(8px) saturate(140%);
+    box-shadow: 0 2px 12px rgba(58,28,113,0.08), 0 1.5px 6px rgba(215,109,119,0.10) inset;
+    transition: box-shadow 0.3s, background 0.3s;
+    outline: none;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    /* border: none; */ /* Remove border */
+    background: linear-gradient(120deg, rgba(255,255,255,0.32) 0%, rgba(218,143,255,0.18) 100%);
+    box-shadow: 0 4px 24px rgba(215,109,119,0.18), 0 1.5px 12px rgba(58,28,113,0.12) inset;
+}
+
+/* Keep button stable and remove movement animation */
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    font-family: 'Orbitron', 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(120deg, #232526, #3a1c71, #d76d77, #ffaf7b, #fff176, #00c9ff, #ff6a00);
+    background-size: 800% 800%;
+    color: #fff;
+    box-shadow: 0 2px 18px 8px rgba(215,109,119,0.32), 0 4px 32px 12px rgba(58,28,113,0.22);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fontGradientMove 8s ease-in-out infinite;
+    transition: box-shadow 0.6s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+    will-change: transform;
+}
+
+.login-container button::after {
+    content: attr(value);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(16px) brightness(1.5) saturate(2.2);
+    opacity: 0.75;
+    background: inherit;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    pointer-events: none;
+    animation: fontGradientMove 8s ease-in-out infinite, floatUpDownTrail 2.5s cubic-bezier(.4,0,.2,1) infinite;
+}
+
+.login-container button:hover {
+    box-shadow: 0 6px 32px rgba(215,109,119,0.32);
+    animation: fontGradientMove 2.5s ease-in-out infinite;
+}
+
+/* ...existing keyframes remain unchanged... */
+
+/* Buffering dots animation for login title */
+@keyframes dots {
+    0% { content: ""; }
+    20% { content: "."; }
+    40% { content: ".."; }
+    60% { content: "..."; }
+    80% { content: ".."; }
+    100% { content: ""; }
+}
+
+.overlay-font .dots {
+    display: inline-block;
+    width: 1.5em;
+    text-align: left;
+    animation: dots 1.2s steps(6, end) infinite;
+    font-weight: 700;
+    font-size: 1em;
+    color: inherit;
+}
+
+.overlay-font .dots span {
+    display: inline-block;
+    transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+    color: #fff176; /* Bright yellow for visibility */
+    text-shadow: 0 2px 8px #3a1c71, 0 1px 4px #d76d77; /* Add glow for contrast */
+    font-size: 1.2em; /* Slightly larger */
+    font-weight: 900;
+}
