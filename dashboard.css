@@ -1,15 +1,33 @@
-/* Glassy, smokey background for body */
+
+
+b/* Glowing neon trail canvas */
+#neon-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Smooth animated gradient background (will be overwritten by JS but fallback included) */
 body {
-    font-family: 'Segoe UI', 'Arial', sans-serif;
-    background: linear-gradient(120deg, #232526, #3a1c71, #d76d77, #ffaf7b);
-    background-size: 400% 400%;
-    animation: bodyGradientMove 16s ease-in-out infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
+  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 body::before {
     content: "";
@@ -38,82 +56,6 @@ body::after {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-
-.login-container button {
-  transition: transform 0.25s ease;
-  position: relative;
-}
-
-.play-msg {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  color: #00c9ff;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  text-align: center;
-  margin-bottom: 10px;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  height: 20px; /* reserve height for smoother transitions */
-  pointer-events: none;
-}
-
-.play-msg.hide {
-  opacity: 0;
-  transform: translateY(-6px);
-}
-
-#neon-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
-  pointer-events: none;
-}
-
-
-#cursor-trail {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background: radial-gradient(circle, #00c9ff 0%, #d76d77 80%, transparent 100%);
-  border-radius: 50%;
-  pointer-events: none;
-  box-shadow:
-    0 0 12px rgba(0, 201, 255, 0.6),
-    0 0 24px rgba(215, 109, 119, 0.4),
-    0 0 36px rgba(255, 175, 123, 0.2);
-  opacity: 0;
-  transition: opacity 0.4s ease, transform 0.02s linear;
-  z-index: 9999;
-}
-
-
-.warning-msg {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  color: #fff176;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  text-align: center;
-  margin-top: -10px;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  height: 20px; /* Reserve space */
-  pointer-events: none;
-}
-
-.warning-msg.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
 
 /* Glassy, smokey login container */
 .login-container {
@@ -344,6 +286,16 @@ body::after {
     color: inherit;
 }
 
+#neon-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+}
+
 .overlay-font .dots span {
     display: inline-block;
     transition: transform 0.25s cubic-bezier(.4,0,.2,1);
@@ -353,3 +305,108 @@ body::after {
     font-size: 1.2em; /* Slightly larger */
     font-weight: 900;
 }
+      /* Grey-glassy dashboard container with droplets */
+      .dashboard-container {
+        max-width: 640px;
+        padding: 36px 32px;
+        border-radius: 24px;
+        background: rgba(240, 240, 240, 0.12); /* Greyish tint */
+        backdrop-filter: blur(22px) saturate(140%);
+        background-color: rgba(255, 255, 255, 0.06); /* fallback */
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18),
+          0 4px 16px rgba(31, 38, 135, 0.22);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: relative;
+        animation: fadeInScale 1.2s ease-out forwards;
+        opacity: 0;
+        transform: scale(0.96) translateY(30px);
+        overflow: hidden;
+      }
+
+      /* Water droplet texture overlay */
+      .dashboard-container::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("https://www.transparenttextures.com/patterns/water-drops.png");
+        opacity: 0.1;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @keyframes fadeInScale {
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .dashboard-header {
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .dashboard-header h2.overlay-font {
+        animation: none !important;
+        background-size: 300% 300%;
+        background-position: 50% 50%;
+        text-shadow: 0 4px 24px rgba(0, 0, 0, 0.3),
+          0 2px 6px rgba(215, 109, 119, 0.2);
+      }
+
+      .dashboard-header h2.overlay-font::after {
+        display: none;
+      }
+
+      .welcome-msg {
+        color: #ffffffcc;
+        font-size: 1.1rem;
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+        margin-top: -8px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .dashboard-actions {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .dashboard-actions button {
+        flex: 1 1 45%;
+        padding: 12px 16px;
+        font-family: "Montserrat", "Segoe UI", sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border: none;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(58, 28, 113, 0.15),
+          0 2px 6px rgba(215, 109, 119, 0.12) inset;
+        backdrop-filter: blur(12px);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .dashboard-actions button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 6px 20px rgba(215, 109, 119, 0.25),
+          0 3px 8px rgba(58, 28, 113, 0.18) inset;
+        transform: translateY(-2px);
+      }
+
+      .dots {
+        display: none;
+      }
+
+      
